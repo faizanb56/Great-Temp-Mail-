@@ -3,412 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GREAT TEMP MAIL - Premium Temporary Email Service</title>
+    <title>GREAT TEMP MAIL | @itx_faizan49</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #8b5cf6;
-            --secondary: #6366f1;
-            --bg-dark: #0a0a0c;
-            --card-glass: rgba(255, 255, 255, 0.05);
-            --border-glass: rgba(255, 255, 255, 0.1);
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-dark);
-            color: white;
-            overflow-x: hidden;
-            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        /* Animated Background */
-        .bg-animate {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #0a0a0c 100%);
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .blob {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: var(--primary);
-            filter: blur(80px);
-            border-radius: 50%;
-            opacity: 0.2;
-            animation: move 20s infinite alternate;
+        .dark .glass {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        @keyframes move {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(100%, 80%); }
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .glass-card {
-            background: var(--card-glass);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        .loader {
+            border-top-color: #3b82f6;
+            animation: spinner 0.6s linear infinite;
         }
 
-        .btn-purple {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transition: all 0.3s ease;
+        @keyframes spinner {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
 
-        .btn-purple:hover {
+        .mail-card {
+            transition: transform 0.2s;
+        }
+        .mail-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.4);
-        }
-
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
-
-        .loader-bar {
-            height: 4px;
-            width: 0%;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        .refresh-spin {
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .message-row:hover {
-            background: rgba(255, 255, 255, 0.03);
-            cursor: pointer;
         }
     </style>
 </head>
-<body class="p-4 md:p-8">
-    <div class="bg-animate">
-        <div class="blob"></div>
-    </div>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen">
 
     <!-- Header -->
-    <header class="max-w-5xl mx-auto mb-10 flex flex-col md:flex-row justify-between items-center gap-6">
-        <h1 class="text-3xl font-bold tracking-tighter">
-            <span class="text-purple-500">GREAT</span> TEMP MAIL
-        </h1>
-        <div class="flex items-center gap-4">
-            <button id="themeToggle" class="p-3 glass-card rounded-full hover:bg-white/10 transition">
-                🌙
-            </button>
-            <div id="expiryTimer" class="px-4 py-2 glass-card text-sm font-semibold text-purple-300">
-                Expires in: <span id="timerText">10:00</span>
+    <nav class="p-4 glass sticky top-0 z-50 shadow-sm">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-blue-600 p-2 rounded-lg text-white">
+                    <i class="fas fa-envelope-open-text text-xl"></i>
+                </div>
+                <h1 class="text-xl font-bold tracking-tight">Temp<span class="text-blue-600">Mail</span></h1>
             </div>
-        </div>
-    </header>
-
-    <main class="max-w-5xl mx-auto space-y-6">
-        <!-- Control Center -->
-        <div class="glass-card p-6 md:p-10 space-y-6">
-            <div class="flex flex-col lg:flex-row gap-4 items-end">
-                <div class="flex-1 w-full space-y-2">
-                    <label class="text-xs uppercase tracking-widest text-gray-400 font-semibold ml-1">Your Temporary Address</label>
-                    <div class="flex items-center gap-2 p-1 glass-card bg-black/20 rounded-xl border-white/5">
-                        <input id="emailInput" type="text" readonly value="loading..." class="bg-transparent border-none outline-none px-4 py-3 flex-1 text-lg font-medium">
-                        <button onclick="copyEmail()" class="px-6 py-3 btn-purple rounded-lg font-bold">COPY</button>
-                    </div>
-                </div>
-                <div class="flex gap-2 w-full lg:w-auto">
-                    <button onclick="generateRandom()" class="flex-1 lg:flex-none px-6 py-4 glass-card hover:bg-white/10 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
-                        🔄 RANDOM
-                    </button>
-                    <button onclick="showCustomModal()" class="flex-1 lg:flex-none px-6 py-4 glass-card hover:bg-white/10 rounded-xl text-sm font-bold flex items-center justify-center gap-2">
-                        ✏️ CUSTOM
-                    </button>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap gap-4 pt-4 border-t border-white/5 items-center justify-between">
-                <div class="flex gap-4">
-                    <button onclick="extendTime()" class="text-xs font-bold text-purple-400 hover:text-purple-300">+ EXTEND TIME</button>
-                    <button onclick="showQR()" class="text-xs font-bold text-purple-400 hover:text-purple-300">QR CODE</button>
-                    <button onclick="deleteInbox()" class="text-xs font-bold text-red-400 hover:text-red-300">DELETE INBOX</button>
-                </div>
-                <div class="text-xs text-gray-500 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    SPAM FILTER ACTIVE
+            
+            <div class="flex items-center gap-4">
+                <button id="themeToggle" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                    <i class="fas fa-moon dark:hidden"></i>
+                    <i class="fas fa-sun hidden dark:block"></i>
+                </button>
+                <div class="text-xs font-medium text-slate-500 hidden sm:block">
+                    Dev: <span class="text-blue-500">@itx_faizan49</span>
                 </div>
             </div>
         </div>
+    </nav>
 
-        <!-- Inbox Section -->
-        <div class="glass-card overflow-hidden">
-            <div class="p-6 border-b border-white/5 flex justify-between items-center">
-                <h2 class="text-xl font-bold">Inbox</h2>
-                <div class="flex items-center gap-4">
-                    <span id="refreshStatus" class="text-xs text-gray-400">Auto-refreshing...</span>
-                    <button onclick="manualRefresh()" id="refreshBtn" class="p-2 hover:bg-white/5 rounded-full">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+    <!-- Hero Section -->
+    <main class="max-w-6xl mx-auto p-4 md:p-8">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-5xl font-extrabold mb-4">Your Disposable Email <span class="gradient-text">Address</span></h2>
+            <p class="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">Forget about spam, advertising mailings, and hacking. Keep your real mailbox clean and secure.</p>
+        </div>
+
+        <!-- Address Bar Box -->
+        <div class="glass rounded-3xl p-6 shadow-xl mb-10 max-w-3xl mx-auto border-2 border-blue-100 dark:border-blue-900">
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="flex-grow relative">
+                    <input type="text" id="emailDisplay" readonly 
+                        class="w-full bg-slate-100 dark:bg-slate-900 border-none p-4 pr-12 rounded-2xl font-mono text-lg font-medium focus:ring-2 focus:ring-blue-500" 
+                        value="loading...">
+                    <button onclick="copyEmail()" class="absolute right-3 top-3 text-slate-400 hover:text-blue-600 transition-colors p-1">
+                        <i class="far fa-copy text-xl"></i>
+                    </button>
+                </div>
+                <div class="flex gap-2">
+                    <select id="domainSelector" class="bg-slate-100 dark:bg-slate-900 border-none p-4 rounded-2xl font-medium focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="@tempmail.com">@tempmail.com</option>
+                        <option value="@mailvibe.net">@mailvibe.net</option>
+                        <option value="@dropmail.me">@dropmail.me</option>
+                        <option value="@secure-box.org">@secure-box.org</option>
+                    </select>
+                    <button onclick="generateNewEmail()" class="bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-2xl transition-all active:scale-95 flex items-center gap-2">
+                        <i class="fas fa-sync-alt"></i>
+                        <span class="hidden sm:inline">Refresh</span>
                     </button>
                 </div>
             </div>
+            
+            <div class="flex flex-wrap justify-center gap-4 mt-6">
+                <button onclick="copyEmail()" class="text-sm font-semibold flex items-center gap-2 px-4 py-2 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors">
+                    <i class="fas fa-copy"></i> Copy Address
+                </button>
+                <button id="qrBtn" class="text-sm font-semibold flex items-center gap-2 px-4 py-2 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors">
+                    <i class="fas fa-qrcode"></i> QR Code
+                </button>
+            </div>
+        </div>
 
-            <div id="loader" class="loader-bar"></div>
-
-            <div id="inboxList" class="min-h-[300px]">
-                <!-- Empty State -->
-                <div id="emptyState" class="flex flex-col items-center justify-center py-20 text-gray-500">
-                    <div class="w-16 h-16 mb-4 opacity-20">
-                        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+        <!-- Mailbox Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Sidebar Stats -->
+            <div class="space-y-4">
+                <div class="glass rounded-2xl p-6">
+                    <h3 class="font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-info-circle text-blue-500"></i>
+                        Status
+                    </h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Auto Refresh</span>
+                            <span class="text-green-500 flex items-center gap-1"><span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Active</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Connection</span>
+                            <span>Secure SSL</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Session ID</span>
+                            <span class="font-mono text-xs opacity-50" id="sessionId">#82J9-XK2</span>
+                        </div>
                     </div>
-                    <p>Waiting for incoming emails...</p>
                 </div>
 
-                <!-- Email List (Hidden initially) -->
-                <div id="emails" class="divide-y divide-white/5 hidden">
-                    <!-- Sample Email -->
-                    <div class="message-row p-6 flex flex-col md:flex-row gap-4 items-start md:items-center" onclick="openMessage(1)">
-                        <div class="flex-1">
-                            <h4 class="font-bold text-purple-400">Welcome Team</h4>
-                            <p class="text-sm text-gray-300 font-semibold">Verify your account</p>
-                            <p class="text-xs text-gray-500 mt-1">Hello! Please click the link below to verify...</p>
+                <div class="bg-gradient-to-br from-blue-600 to-purple-700 rounded-2xl p-6 text-white shadow-lg">
+                    <h3 class="font-bold mb-2">Premium Features</h3>
+                    <p class="text-sm opacity-80 mb-4">Get custom domain names and permanent storage.</p>
+                    <button class="w-full bg-white text-blue-700 font-bold py-2 rounded-xl text-sm shadow-md">Upgrade Now</button>
+                </div>
+            </div>
+
+            <!-- Message List -->
+            <div class="lg:col-span-2 space-y-4">
+                <div class="flex justify-between items-center mb-2 px-2">
+                    <h3 class="text-xl font-bold">Your Inbox</h3>
+                    <span id="mailCount" class="bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300 text-xs font-bold px-2 py-1 rounded-full">0 Messages</span>
+                </div>
+
+                <div id="inboxList" class="space-y-3">
+                    <!-- Empty State -->
+                    <div id="emptyState" class="glass rounded-2xl p-12 text-center">
+                        <div class="mb-4">
+                            <i class="fas fa-clock text-5xl text-slate-300 animate-pulse"></i>
                         </div>
-                        <div class="text-right flex flex-col items-end gap-2">
-                            <span class="text-xs text-gray-500">2 mins ago</span>
-                            <span class="px-2 py-1 bg-purple-500/10 text-purple-400 rounded text-[10px] font-bold">NEW</span>
-                        </div>
+                        <h4 class="font-bold text-lg mb-1">Waiting for incoming emails...</h4>
+                        <p class="text-slate-500 text-sm">Incoming messages will automatically appear here.</p>
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Message Modal -->
-    <div id="msgModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col">
-            <div class="p-6 border-b border-white/5 flex justify-between items-center">
-                <h3 class="font-bold">Email Message</h3>
-                <button onclick="closeModal('msgModal')" class="text-gray-400 hover:text-white">&times;</button>
-            </div>
-            <div class="p-6 overflow-y-auto space-y-4">
-                <div class="space-y-1">
-                    <p class="text-xs text-gray-500">From: <span class="text-purple-400" id="msgFrom">support@service.com</span></p>
-                    <p class="text-lg font-bold" id="msgSubject">Verification Code: 4592</p>
-                </div>
-                <div class="p-4 bg-white/5 rounded-xl text-gray-300 leading-relaxed" id="msgBody">
-                    Welcome to Great Temp Mail. Your temporary email is working perfectly.
-                </div>
-                <div class="pt-4 flex gap-3">
-                    <button class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-xs font-bold flex items-center gap-2">
-                        📎 Download Attachment (0)
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Custom Email Modal -->
-    <div id="customModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card w-full max-w-md p-6 space-y-6">
-            <h3 class="text-xl font-bold">Create Custom Email</h3>
-            <div class="space-y-4">
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-gray-500">USERNAME</label>
-                    <input id="customUser" type="text" placeholder="e.g. faizan_bashir" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-purple-500">
-                </div>
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-gray-500">DOMAIN</label>
-                    <select id="customDomain" class="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-purple-500 appearance-none">
-                        <option value="@greatmail.com">@greatmail.com</option>
-                        <option value="@tempbox.org">@tempbox.org</option>
-                        <option value="@fastinbox.net">@fastinbox.net</option>
-                    </select>
-                </div>
-                <button onclick="applyCustom()" class="w-full py-4 btn-purple rounded-xl font-bold">CREATE EMAIL</button>
-                <button onclick="closeModal('customModal')" class="w-full py-2 text-gray-500 text-sm font-bold">CANCEL</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- QR Modal -->
-    <div id="qrModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card p-8 flex flex-col items-center gap-6">
-            <h3 class="font-bold">Scan QR Code</h3>
-            <div id="qrcode" class="bg-white p-2 rounded-lg"></div>
-            <button onclick="closeModal('qrModal')" class="px-6 py-2 glass-card rounded-lg font-bold">CLOSE</button>
-        </div>
-    </div>
-
-    <footer class="max-w-5xl mx-auto mt-20 pb-10 text-center">
-        <p class="text-sm text-gray-500 mb-2">Private • Secure • Anonymous</p>
-        <p class="text-lg font-bold tracking-widest text-purple-500 uppercase">Developed By : Mr Faizan Bashir 056</p>
+    <!-- Footer -->
+    <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 p-8 text-center">
+        <p class="text-slate-500 text-sm mb-2">© 2024 Temp Mail Pro - High Security Disposable Email</p>
+        <p class="text-sm font-semibold">Created with ❤️ by <a href="#" class="text-blue-600 hover:underline">@itx_faizan49</a></p>
     </footer>
 
-    <script>
-        // State Management
-        let currentEmail = "";
-        let timerSeconds = 600; // 10 minutes
-        let isDarkMode = true;
-        const domains = ["@greatmail.com", "@tempbox.org", "@fastinbox.net"];
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 glass px-6 py-3 rounded-full shadow-2xl border-blue-500/50 hidden z-[100] transition-all">
+        <span id="toastMsg" class="font-medium"></span>
+    </div>
 
-        // Init
+    <!-- Message Modal -->
+    <div id="messageModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden z-[200] flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-3xl shadow-2xl overflow-hidden animate-in fade-in zoom-in duration-300">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div id="senderInitial" class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold">A</div>
+                    <div>
+                        <h4 id="modalSubject" class="font-bold text-lg leading-tight">Subject</h4>
+                        <p id="modalFrom" class="text-xs text-slate-500">from@example.com</p>
+                    </div>
+                </div>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 p-2"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div id="modalBody" class="p-8 min-h-[300px] overflow-y-auto prose dark:prose-invert">
+                <!-- Content -->
+            </div>
+            <div class="p-4 bg-slate-50 dark:bg-slate-800 flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-6 py-2 rounded-xl font-bold bg-slate-200 dark:bg-slate-700 text-sm">Close</button>
+                <button class="px-6 py-2 rounded-xl font-bold bg-blue-600 text-white text-sm">Download</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants & State
+        const emailInput = document.getElementById('emailDisplay');
+        const domainSelect = document.getElementById('domainSelector');
+        const inboxList = document.getElementById('inboxList');
+        const emptyState = document.getElementById('emptyState');
+        const mailCountBadge = document.getElementById('mailCount');
+        const themeToggle = document.getElementById('themeToggle');
+        
+        let currentEmail = "";
+        let inbox = [];
+
+        // Initialization
         window.onload = () => {
-            generateRandom();
-            startTimer();
-            startAutoRefresh();
+            generateNewEmail();
+            document.getElementById('sessionId').innerText = '#' + Math.random().toString(36).substr(2, 6).toUpperCase();
+            
+            // Check for saved theme
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+
+            // Start Mock Inbox Simulation
+            setTimeout(simulateEmail, 5000);
         };
 
-        function generateRandom() {
-            const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-            let user = '';
-            for (let i = 0; i < 8; i++) user += chars.charAt(Math.floor(Math.random() * chars.length));
-            const domain = domains[Math.floor(Math.random() * domains.length)];
-            setNewEmail(user + domain);
+        // Theme Logic
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // Email Generation
+        function generateNewEmail() {
+            const prefixes = ['user', 'hello', 'dev', 'test', 'alpha', 'faizan', 'cool', 'mail', 'temp'];
+            const random = Math.floor(Math.random() * 10000);
+            const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
+            const domain = domainSelect.value;
+            
+            currentEmail = `${prefix}${random}${domain}`;
+            emailInput.value = currentEmail;
+            
+            // Clear current inbox for new email simulation (Optional)
+            // inbox = [];
+            // renderInbox();
+            showToast("New Email Generated!");
         }
 
-        function setNewEmail(email) {
-            currentEmail = email;
-            document.getElementById('emailInput').value = email;
-            resetTimer();
-            // Show dummy inbox state change
-            document.getElementById('emails').classList.add('hidden');
-            document.getElementById('emptyState').classList.remove('hidden');
-        }
+        // Domain selection listener
+        domainSelect.addEventListener('change', () => {
+            const base = emailInput.value.split('@')[0];
+            currentEmail = base + domainSelect.value;
+            emailInput.value = currentEmail;
+            showToast("Domain updated!");
+        });
 
+        // Clipboard
         function copyEmail() {
-            const input = document.getElementById('emailInput');
-            input.select();
+            emailInput.select();
             document.execCommand('copy');
-            
-            // Notification logic (custom message box)
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "COPIED!";
-            btn.style.background = "#22c55e";
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.style.background = "";
-            }, 2000);
+            showToast("Address copied to clipboard!");
         }
 
-        function showCustomModal() {
-            document.getElementById('customModal').classList.remove('hidden');
-        }
-
-        function applyCustom() {
-            const user = document.getElementById('customUser').value.trim();
-            const domain = document.getElementById('customDomain').value;
-            if (user.length < 3) return;
-            setNewEmail(user + domain);
-            closeModal('customModal');
-        }
-
-        function startTimer() {
-            setInterval(() => {
-                if (timerSeconds > 0) {
-                    timerSeconds--;
-                    updateTimerDisplay();
-                } else {
-                    autoDelete();
-                }
-            }, 1000);
-        }
-
-        function updateTimerDisplay() {
-            const mins = Math.floor(timerSeconds / 60);
-            const secs = timerSeconds % 60;
-            document.getElementById('timerText').innerText = 
-                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function resetTimer() {
-            timerSeconds = 600;
-        }
-
-        function extendTime() {
-            timerSeconds = Math.min(timerSeconds + 600, 1800); // Max 30 mins
-            updateTimerDisplay();
-        }
-
-        function deleteInbox() {
-            if(confirm("Are you sure? This will delete all messages and current email.")) {
-                generateRandom();
-            }
-        }
-
-        function startAutoRefresh() {
-            setInterval(() => {
-                manualRefresh();
-            }, 15000); // 15 seconds
-        }
-
-        function manualRefresh() {
-            const loader = document.getElementById('loader');
-            const icon = document.querySelector('#refreshBtn svg');
-            
-            icon.classList.add('refresh-spin');
-            loader.style.width = '100%';
+        // Notification System
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.innerText = msg;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
             
             setTimeout(() => {
-                loader.style.width = '0%';
-                icon.classList.remove('refresh-spin');
-                
-                // Demo: Add an email after 10 seconds of use
-                if (Math.random() > 0.7) {
-                    document.getElementById('emails').classList.remove('hidden');
-                    document.getElementById('emptyState').classList.add('hidden');
-                }
-            }, 1000);
+                toast.classList.add('hidden');
+            }, 3000);
         }
 
-        function openMessage(id) {
-            document.getElementById('msgModal').classList.remove('hidden');
+        // Modal Logic
+        function openMail(id) {
+            const mail = inbox.find(m => m.id === id);
+            if (!mail) return;
+
+            document.getElementById('modalSubject').innerText = mail.subject;
+            document.getElementById('modalFrom').innerText = `From: ${mail.sender}`;
+            document.getElementById('modalBody').innerHTML = mail.body;
+            document.getElementById('senderInitial').innerText = mail.sender.charAt(0).toUpperCase();
+            document.getElementById('messageModal').classList.remove('hidden');
         }
 
-        function closeModal(id) {
-            document.getElementById(id).classList.add('hidden');
+        function closeModal() {
+            document.getElementById('messageModal').classList.add('hidden');
         }
 
-        function showQR() {
-            const qrContainer = document.getElementById('qrcode');
-            qrContainer.innerHTML = "";
-            new QRCode(qrContainer, {
-                text: currentEmail,
-                width: 200,
-                height: 200,
-                colorDark : "#000000",
-                colorLight : "#ffffff"
-            });
-            document.getElementById('qrModal').classList.remove('hidden');
-        }
-
-        function autoDelete() {
-            generateRandom();
-            console.log("Email expired and rotated.");
-        }
-
-        // Theme Toggle
-        document.getElementById('themeToggle').onclick = function() {
-            isDarkMode = !isDarkMode;
-            if(!isDarkMode) {
-                document.body.style.backgroundColor = "#f8f9fa";
-                document.body.style.color = "#1a1a1a";
-                this.innerText = "☀️";
-            } else {
-                document.body.style.backgroundColor = "#0a0a0c";
-                document.body.style.color = "white";
-                this.innerText = "🌙";
+        // Inbox Rendering
+        function renderInbox() {
+            if (inbox.length === 0) {
+                emptyState.style.display = 'block';
+                inboxList.innerHTML = '';
+                inboxList.appendChild(emptyState);
+                mailCountBadge.innerText = "0 Messages";
+                return;
             }
+
+            emptyState.style.display = 'none';
+            mailCountBadge.innerText = `${inbox.length} Messages`;
+            
+            inboxList.innerHTML = inbox.map(mail => `
+                <div onclick="openMail(${mail.id})" class="mail-card glass p-4 rounded-2xl flex items-center justify-between cursor-pointer border-l-4 border-blue-500 hover:bg-white dark:hover:bg-slate-900 shadow-sm">
+                    <div class="flex items-center gap-4 truncate">
+                        <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center font-bold text-blue-600 flex-shrink-0">
+                            ${mail.sender.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="truncate">
+                            <h4 class="font-bold text-sm">${mail.sender}</h4>
+                            <p class="text-xs text-slate-500 truncate">${mail.subject}</p>
+                        </div>
+                    </div>
+                    <div class="text-right flex-shrink-0">
+                        <span class="text-[10px] text-slate-400 block">${mail.time}</span>
+                        <i class="fas fa-chevron-right text-xs text-slate-300"></i>
+                    </div>
+                </div>
+            `).join('');
         }
+
+        // Email Simulation (Mimicking real behavior)
+        function simulateEmail() {
+            const sampleMails = [
+                {
+                    sender: "Amazon Prime",
+                    subject: "Your OTP for login: 554281",
+                    body: "Hello User, your verification code is <b>554281</b>. Please do not share this with anyone."
+                },
+                {
+                    sender: "Netflix Support",
+                    subject: "Confirm your email address",
+                    body: "<p>Welcome to Netflix!</p><p>Please click the button below to verify your account.</p><br><button style='background:red; color:white; padding:10px 20px; border:none; border-radius:5px;'>Verify Email</p>"
+                },
+                {
+                    sender: "itx_faizan49",
+                    subject: "Welcome to Temp Mail Pro",
+                    body: "Thank you for using this Temp Mail website. This UI was built with Tailwind CSS and passion. Keep coding! <br><br><b>Developer:</b> Faizan Ali"
+                }
+            ];
+
+            const mail = sampleMails[Math.floor(Math.random() * sampleMails.length)];
+            const newMail = {
+                id: Date.now(),
+                sender: mail.sender,
+                subject: mail.subject,
+                body: mail.body,
+                time: "Just now"
+            };
+
+            inbox.unshift(newMail);
+            renderInbox();
+            showToast(`New email from ${mail.sender}`);
+
+            // Schedule next simulation (between 15-30 seconds)
+            setTimeout(simulateEmail, Math.random() * 15000 + 15000);
+        }
+
     </script>
 </body>
 </html>
